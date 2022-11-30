@@ -67,9 +67,9 @@ fi
 
 useradd "${useraddOptions[@]}" "$user"
 mkdir -p "/home/$user"
-#chown root:root "/home/$user"
-chown foo:users "/home/$user"
-chmod 755 "/home/$user"
+chown root:root "/home/$user"
+#chown foo:users "/home/$user"
+#chmod 755 "/home/$user"
 
 # Retrieving user id to use it in chown commands instead of the user name
 # to avoid problems on alpine when the user name contains a '.'
@@ -116,8 +116,7 @@ fi
 echo "Bucket Name: $BUCKET_NAME"
 
 # GCSFuse Mount
-su $user
-log "Creating GCS Fuse for $BUCKET_NAME at $dirPath/gcs"
-mkdir "$dirPath/gcs"
-gcsfuse "$BUCKET_NAME" "$dirPath/gcs"
-exit
+log "Creating GCS Fuse for $BUCKET_NAME at /home/$user/gcs"
+mkdir "/home/$user/gcs"
+chown foo:users "/home/$user/gcs"
+su -c "gcsfuse $BUCKET_NAME /home/$user/gcs" "$user"
