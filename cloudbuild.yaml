@@ -1,0 +1,21 @@
+steps:
+# Build Container and store in Artifact Repo
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}', '.' ]
+# Deploy app to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'run'
+  - 'deploy'
+  - '${_IMAGE}'
+  - '--image'
+  - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}'
+  - '--region'
+  - '${_LOCATION}'
+  - '--port'
+  - '22'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
+images:
+  - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}'
