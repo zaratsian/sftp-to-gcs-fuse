@@ -14,11 +14,11 @@ RUN apt-get update && \
     rm -f /etc/ssh/ssh_host_*key*
 
 COPY assets/sshd_config /etc/ssh/sshd_config
-COPY assets/startup /
+COPY assets/entry /
 RUN chmod 755 /etc/ssh/sshd_config
-RUN chmod 755 /startup
+RUN chmod 755 /entry
 
 EXPOSE 22
 
 #CMD ["/bin/bash"]
-ENTRYPOINT ["/startup"]
+ENTRYPOINT ["/entry"]
