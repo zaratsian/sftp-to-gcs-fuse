@@ -1,0 +1,35 @@
+#!/bin/bash
+#export BUCKET_NAME=stealth-air-datasets
+#export USERNAME=foo
+#export PASSWORD=pass
+export SFTPGROUP=users
+
+# If first time login, then crease user and mount GCS bucket
+if ! getent passwd "$USERNAME" > /dev/null; then
+    echo "Creating user as $USERNAME"
+    # Add SFTP user and group
+    useradd $USERNAME
+    #addgroup $SFTPGROUP
+    echo "$USERNAME:$PASSWORD" | chpasswd
+
+    # Add directory for user with ownership
+    mkdir -p "/home/$USERNAME"
+    chown root:root "/home/$USERNAME"
+
+    # GCSFuse Mount
+    echo "Creating GCS Fuse for $BUCKET_NAME at /home/$USERNAME/gcs"
+    mkdir "/home/$USERNAME/gcs"
+    chown $USERNAME:$SFTPGROUP "/home/$USERNAME/gcs"
+    su -c "gcsfuse $BUCKET_NAME /home/$USERNAME/gcs" "$USERNAME"
+
+    # Generate ssh keys
+    ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ''
+    ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ''
+    chmod 600 /etc/ssh/ssh_host_ed25519_key || true
+    chmod 600 /etc/ssh/ssh_host_rsa_key || true
+
+else
+    echo "User already exists."
+fi
+
+exec /usr/sbin/sshd -D -e

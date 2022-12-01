@@ -1,0 +1,24 @@
+Protocol 2
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+
+PermitRootLogin no
+ChallengeResponseAuthentication yes
+PasswordAuthentication yes
+UsePAM no
+
+PermitEmptyPasswords no
+
+#AuthenticationMethods publickey
+#PubkeyAuthentication yes
+
+ClientAliveInterval 300
+ClientAliveCountMax 0
+
+ChrootDirectory %h
+X11Forwarding no
+AllowTcpForwarding no
+Subsystem sftp internal-sftp
+ForceCommand internal-sftp
+
+Port 22
