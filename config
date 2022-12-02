@@ -1,0 +1,12 @@
+export GCP_PROJECT_ID="stealth-air-23412"
+
+export GCE_INSTANCE_NAME="sftp-to-gcs"
+export GCE_ZONE="us-central1-a"
+
+export USERNAME="foo"
+export PASSWORD="pass"
+export SSH_PUBLIC_KEY=""
+
+export GCS_BUCKET_NAME="stealth-air-datasets"
+
+export GITHUB_REPO="https://github.com/zaratsian/sftp-to-gcs-fuse.git"

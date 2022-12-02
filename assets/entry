@@ -1,8 +1,4 @@
 #!/bin/bash
-#export BUCKET_NAME=stealth-air-datasets
-#export USERNAME=foo
-#export PASSWORD=pass
-export SFTPGROUP=users
 
 # If first time login, then crease user and mount GCS bucket
 if ! getent passwd "$USERNAME" > /dev/null; then
@@ -19,7 +15,7 @@ if ! getent passwd "$USERNAME" > /dev/null; then
     # GCSFuse Mount
     echo "Creating GCS Fuse for $BUCKET_NAME at /home/$USERNAME/gcs"
     mkdir "/home/$USERNAME/gcs"
-    chown $USERNAME:$SFTPGROUP "/home/$USERNAME/gcs"
+    chown "$USERNAME:users" "/home/$USERNAME/gcs"
     su -c "gcsfuse $BUCKET_NAME /home/$USERNAME/gcs" "$USERNAME"
 
     # Generate ssh keys
