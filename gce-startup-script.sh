@@ -26,10 +26,11 @@ sudo usermod -aG docker $USER
 # Clone Repo
 git clone $GITHUB_REPO
 
+# Build Contain
 cd sftp-to-gcs-fuse
-
 sudo docker build -t sftp .
 
+# Run Container
 sudo docker run --privileged -p 2222:22 \
 --env BUCKET_NAME=$GCS_BUCKET_NAME \
 --env USERNAME=$USERNAME \

@@ -7,7 +7,7 @@ export GCE_INSTANCE_NAME_WITH_TIMESTAMP="${GCE_INSTANCE_NAME}-$(date -u +%s)"
 gcloud compute instances create $GCE_INSTANCE_NAME_WITH_TIMESTAMP \
     --project=$GCP_PROJECT_ID \
     --zone=$GCE_ZONE \
-    --machine-type=e2-medium \
+    --machine-type=$GCE_MACHINE_TYPE \
     --network-interface=network-tier=PREMIUM,subnet=default \
     --scopes=https://www.googleapis.com/auth/cloud-platform \
     --create-disk=auto-delete=yes,boot=yes,device-name=$GCE_INSTANCE_NAME_WITH_TIMESTAMP,image=projects/debian-cloud/global/images/debian-11-bullseye-v20221102,mode=rw,size=10,type=projects/$GCP_PROJECT_ID/zones/$GCE_ZONE/diskTypes/pd-balanced \
