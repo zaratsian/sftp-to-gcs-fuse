@@ -2,6 +2,7 @@ export GCP_PROJECT_ID="stealth-air-23412"
 
 export GCE_INSTANCE_NAME="sftp-to-gcs"
 export GCE_ZONE="us-central1-a"
+export GCE_MACHINE_TYPE="e2-medium"
 
 export USERNAME="foo"
 export PASSWORD="pass"
