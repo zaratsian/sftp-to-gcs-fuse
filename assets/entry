@@ -9,8 +9,8 @@ groupadd $SFTPGROUP && \
     chown root "/home/$USERNAME" && \
     chmod g+rx "/home/$USERNAME" && \
     mkdir "/home/$USERNAME/sftpdir" && \
-    mkdir "/home/$USERNAME/sftpdir/data" && \
-    chown $USERNAME:$USERNAME "/home/$USERNAME/sftpdir/data"
+    mkdir "/home/$USERNAME/sftpdir/tmp" && \
+    chown $USERNAME:$USERNAME "/home/$USERNAME/sftpdir/tmp"
 
 # Setup authorized keys
 mkdir "/home/$USERNAME/.ssh" && \
