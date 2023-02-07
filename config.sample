@@ -4,8 +4,8 @@ export GCE_INSTANCE_NAME="gcs-sftp-server"
 export GCE_ZONE="us-central1-a"
 export GCE_MACHINE_TYPE="e2-medium"
 
-export USERNAME="foo"
-export PASSWORD="pass"
+export USERNAME=""
+export PASSWORD=""
 export PUBLIC_KEY=""
 
 export GCS_BUCKET_NAME=""

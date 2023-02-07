@@ -25,4 +25,10 @@ mkdir "/home/$USERNAME/sftpdir/gcs" && \
 
 su -c "gcsfuse $BUCKET_NAME /home/$USERNAME/sftpdir/gcs" "$USERNAME"
 
+# If PASSWORD env variable is empty, then disable password auth
+if [ "$PASSWORD" == "" ]
+then
+    sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+fi
+
 exec /usr/sbin/sshd -D -e
