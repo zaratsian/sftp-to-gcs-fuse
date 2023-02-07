@@ -23,32 +23,7 @@ RUN apt-get update && \
     apt-get install -y gcsfuse openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/run/sshd
-    #rm -f /etc/ssh/ssh_host_*key*
-
-# Create user directory and set permissions
-#RUN groupadd $SFTPGROUP && \
-#    #useradd -G $SFTPGROUP -s /sbin/nologin $USERNAME && \
-#    useradd -G $SFTPGROUP $USERNAME && \
-#    mkdir -p "/home/$USERNAME" && \
-#    echo "$USERNAME:$PASSWORD" | chpasswd && \
-#    chown root "/home/$USERNAME" && \
-#    chmod g+rx "/home/$USERNAME" && \
-#    mkdir "/home/$USERNAME/data" && \
-#    chown $USERNAME:$USERNAME "/home/$USERNAME/data"
-
-# Setup authorized keys
-#RUN mkdir "/home/$USERNAME/.ssh" && \
-#    chown $USERNAME:$USERNAME "/home/$USERNAME/.ssh" && \
-#    chmod 700 "/home/$USERNAME/.ssh" && \
-#    touch "/home/$USERNAME/.ssh/authorized_keys" && \
-#    echo $PUBLICKEY >> "/home/$USERNAME/.ssh/authorized_keys"
-
-# GCSFuse Mount
-#RUN mkdir "/home/$USERNAME/gcs" && \
-#    chown "$USERNAME:$USERNAME" "/home/$USERNAME/gcs"
 
 EXPOSE 22
-
-#CMD ["/usr/sbin/sshd", "-D", "-e"]
 
 ENTRYPOINT ["/app/entry"]
