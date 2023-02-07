@@ -1,24 +1,30 @@
 Protocol 2
-HostKey /etc/ssh/ssh_host_ed25519_key
-HostKey /etc/ssh/ssh_host_rsa_key
 
-PermitRootLogin no
-ChallengeResponseAuthentication yes
-PasswordAuthentication yes
-UsePAM no
+Include /etc/ssh/sshd_config.d/*.conf
 
-PermitEmptyPasswords no
+Port 22
 
-#AuthenticationMethods publickey
-#PubkeyAuthentication yes
+PrintMotd no
 
 ClientAliveInterval 300
 ClientAliveCountMax 0
 
-ChrootDirectory %h
-X11Forwarding no
-AllowTcpForwarding no
-Subsystem sftp internal-sftp
-ForceCommand internal-sftp
+Subsystem   sftp    internal-sftp
 
-Port 22
+PermitRootLogin no
+PermitEmptyPasswords no
+#RSAAuthentication yes
+#AuthenticationMethods publickey
+PubkeyAuthentication yes
+AuthorizedKeysFile    .ssh/authorized_keys
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+UsePAM yes
+
+Match Group gcs-sftp-group
+    ChrootDirectory /home/%u/sftpdir
+    #ChrootDirectory %h
+    ForceCommand internal-sftp
+    AllowTcpForwarding no
+    X11Forwarding no
+

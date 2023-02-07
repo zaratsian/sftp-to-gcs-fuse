@@ -17,7 +17,7 @@ gcloud compute instances create $GCE_INSTANCE_NAME_WITH_TIMESTAMP \
     --reservation-affinity=any \
     --tags=sftp-for-gcs \
     --metadata-from-file=startup-script=gce-startup-script.sh \
-    --metadata=USERNAME=$USERNAME,PASSWORD=$PASSWORD,GCS_BUCKET_NAME=$GCS_BUCKET_NAME,GITHUB_REPO=$GITHUB_REPO
+    --metadata=USERNAME=$USERNAME,PASSWORD=$PASSWORD,PUBLIC_KEY="$PUBLIC_KEY",GCS_BUCKET_NAME=$GCS_BUCKET_NAME,GITHUB_REPO=$GITHUB_REPO
 
 # Set Firewall to allow port 2222
 gcloud compute --project=$GCP_PROJECT_ID \

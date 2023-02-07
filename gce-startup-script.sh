@@ -1,6 +1,7 @@
 # Get Metadata and set as ENV
 export USERNAME=$(curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/USERNAME" -H "Metadata-Flavor: Google")
 export PASSWORD=$(curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/PASSWORD" -H "Metadata-Flavor: Google")
+export PUBLIC_KEY=$(curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/PUBLIC_KEY" -H "Metadata-Flavor: Google")
 export GITHUB_REPO=$(curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/GITHUB_REPO" -H "Metadata-Flavor: Google")
 export GCS_BUCKET_NAME=$(curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/GCS_BUCKET_NAME" -H "Metadata-Flavor: Google")
 
@@ -32,7 +33,8 @@ sudo docker build -t sftp .
 
 # Run Container
 sudo docker run --privileged -p 2222:22 \
---env BUCKET_NAME=$GCS_BUCKET_NAME \
---env USERNAME=$USERNAME \
---env PASSWORD=$PASSWORD \
+--env BUCKET_NAME="$GCS_BUCKET_NAME" \
+--env USERNAME="$USERNAME" \
+--env PASSWORD="$PASSWORD" \
+--env PUBLIC_KEY="$PUBLIC_KEY" \
 sftp
