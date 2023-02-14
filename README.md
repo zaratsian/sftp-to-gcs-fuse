@@ -15,8 +15,11 @@ SFTP Server for Google Cloud Storage based on GCSFuse
     cp config.sample config
     ```
 
-3. Update the config file with your own values, such as your GCP project ID, your username, password, and/or public key, etc. 
-4. Deploy SFTP Server
+3. Update the config file with your own values such as your GCP project ID, your username, password, and/or public key, machine size, etc.
+
+4. Deploy SFTP Server. 
+    
+    NOTE: [gce-deploy.sh](gce-deploy.sh) creates a firewall rule that opens port 2222 within your GCP project. Edit that firewall rule based on your preferred security policies.
 
     ```bash
     ./gce-deploy.sh
