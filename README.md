@@ -22,7 +22,7 @@ SFTP Server for Google Cloud Storage based on GCSFuse
     ./gce-deploy.sh
     ```
 
-5. From you client, connect to the SFTP Server
+5. From your client, connect to the SFTP Server
 
     ```bash
     sftp -P 2222 <sftp_server_ip_addr>
