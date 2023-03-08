@@ -5,7 +5,6 @@ groupadd $SFTPGROUP && \
      #useradd -G $SFTPGROUP -s /sbin/nologin $USERNAME && \
     useradd -G $SFTPGROUP $USERNAME && \
     mkdir -p "/home/$USERNAME" && \
-    echo "$USERNAME:$PASSWORD" | chpasswd && \
     chown root "/home/$USERNAME" && \
     chmod g+rx "/home/$USERNAME" && \
     mkdir "/home/$USERNAME/sftpdir" && \
@@ -26,9 +25,10 @@ mkdir "/home/$USERNAME/sftpdir/gcs" && \
 su -c "gcsfuse $BUCKET_NAME /home/$USERNAME/sftpdir/gcs" "$USERNAME"
 
 # If PASSWORD env variable is empty, then disable password auth
-if [ "$PASSWORD" == "" ]
+if [ "$PASSWORD" != "" ]
 then
-    sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+    echo "$USERNAME:$PASSWORD" | chpasswd && \
+    sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 fi
 
 exec /usr/sbin/sshd -D -e
