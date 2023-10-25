@@ -11,13 +11,11 @@ WORKDIR /app
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata && \
     apt-get install -y gnupg lsb-release wget && \
-    mkdir /etc/ssh
-
-RUN GCSFUSE_REPO=gcsfuse-`lsb_release -c -s` && \
+    mkdir /etc/ssh && \
+    GCSFUSE_REPO=gcsfuse-`lsb_release -c -s` && \
     echo "deb https://packages.cloud.google.com/apt $GCSFUSE_REPO main" | tee /etc/apt/sources.list.d/gcsfuse.list && \
-    wget -O - https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-
-RUN apt-get update && \
+    wget -O - https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    apt-get update && \
     apt-get install -y fuse gcsfuse openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/run/sshd
